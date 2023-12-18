@@ -16,9 +16,14 @@ function App() {
 
   useEffect(() => {
     const connectWallet = async() => {
+        window.ethereum.on("chainChanged",()=>{
+          window.location.reload();
+        })
+        window.ethereum.on("accountsChanged",()=>{
+          window.location.reload();
+        })
+
         const contractAddress = "0xef40025d40d4a348265173fa2f9656199cc17b15";
-        let defaultAccount;
-        // const contractABI = ABI.abi;
         try{
           const web3 = new Web3(window.ethereum);
           if(!web3){
@@ -38,6 +43,7 @@ function App() {
         }
         catch(error){
             console.error(error)
+            // alert("Please install MetaMask!")
         }
     }
     connectWallet()
